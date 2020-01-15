@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+
+def CalcCRC16(data):
+    """
+    Calculate CRC16 using the given table.
+        `data`      - data for calculating CRC, must be bytes
+        `crc`       - initial value
+    Return calculated value of CRC
+    """
+
+    crc = 0xFFFF
+    for pos in data:
+        crc ^= pos
+        for i in range(8):
+            if (crc & 1) != 0:
+                crc >>= 1
+                crc ^= 0xA001
+            else:
+                crc >>= 1
+    return crc
